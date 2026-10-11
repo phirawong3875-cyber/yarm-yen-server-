@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102016">
+<title>Yarm Yen | Minecraft Survival</title>
+
+<style>
+:root {
+  --bg: #101b12;
+  --panel: #1b2b1e;
+  --green: #a4ed83;
+  --text: #f4f8f1;
+  --muted: #bdcbbb;
+  --border: #3c5a3e;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at top, #315c32, transparent 65%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+.wrap {
+  width: min(920px, 92%);
+  margin: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  gap: 12px;
+}
+
+.brand {
+  color: var(--green);
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.badge {
+  color: var(--green);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+
+.hero {
+  text-align: center;
+  padding: 48px 10px 38px;
+}
+
+.grass {
+  font-size: 68px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 5px 10px #0005);
+}
+
+h1 {
+  font-size: clamp(42px, 10vw, 76px);
+  margin: 0;
+  line-height: 1.1;
+}
+
+h1 span { color: var(--green); }
+
+.lead {
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 20px auto 26px;
+  max-width: 580px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 17px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #203523;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn:hover { background: #304d33; }
+
+.btn.primary {
+  background: var(--green);
+  color: #142014;
+  border-color: var(--green);
+}
+
+.panel {
+  margin: 17px 0;
+  padding: clamp(18px, 4vw, 27px);
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  background: rgba(27, 43, 30, .96);
+  box-shadow: 0 12px 30px #0002;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 23px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0 0 20px;
+}
+
+.servers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.server {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 15px;
+  background: #142218;
+  border: 1px solid #354e37;
+}
+
+.server h3 {
+  margin: 0 0 18px;
+  font-size: 18px;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 14px 0 7px;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #0d180f;
+  border-radius: 10px;
+  padding: 11px;
+}
+
+.value {
+  color: var(--green);
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  padding: 9px 11px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 14px 0 0;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.feature {
+  padding: 16px;
+  border: 1px solid #354e37;
+  border-radius: 13px;
+  background: #142218;
+}
+
+.feature strong {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.feature span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.discord {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.discord p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 28px 0;
+  color: #9fb19d;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 15px);
+  background: #e4f8da;
+  color: #142014;
+  padding: 12px 18px;
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .2s;
+  z-index: 10;
+  text-align: center;
+  width: max-content;
+  max-width: 90%;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 620px) {
+  .servers, .features {
+    grid-template-columns: 1fr;
+  }
+
+  .hero { padding-top: 30px; }
+
+  header { align-items: flex-start; }
+
+  .address { align-items: flex-start; }
+
+  .copy { white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="wrap">
+  <div class="brand">⛏ YARM YEN</div>
+  <div class="badge">MINECRAFT SURVIVAL</div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="grass">🌿</div>
+    <h1>Yarm <span>Yen</span></h1>
+
+    <p class="lead">
+      เซิร์ฟเวอร์เอาชีวิตรอด เล่นกับเพื่อนแบบสบาย ๆ<br>
+      สร้างบ้าน สำรวจโลก และผจญภัยไปด้วยกัน!
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="#connect">
+        🎮 เข้าร่วมเซิร์ฟเวอร์
+      </a>
+
+      <a class="btn"
+         href="https://discord.gg/fuHYjkMaQZ"
+         target="_blank"
+         rel="noopener noreferrer">
+        💬 เข้าร่วม Discord ↗
+      </a>
+    </div>
+  </section>
+
+  <section class="panel" id="connect">
+    <h2>🎮 เชื่อมต่อเซิร์ฟเวอร์</h2>
+    <p class="sub">
+      เลือก Edition ที่เล่น แล้วคัดลอกข้อมูลไปใส่ใน Minecraft
+    </p>
+
+    <div class="servers">
+
+      <article class="server">
+        <h3>🖥️ Java Edition</h3>
+
+        <div class="label">Server Address</div>
+        <div class="address">
+          <span class="value">ggez1234.mcsh.io</span>
+          <button class="btn copy"
+            type="button"
+            data-copy="ggez1234.mcsh.io"
+            data-name="IP Java">
+            คัดลอก IP
+          </button>
+        </div>
+
+        <p class="note">
+          เปิด Minecraft Java แล้วเพิ่มเซิร์ฟเวอร์
+          โดยนำ Address นี้ไปใส่ในช่อง Server Address
+        </p>
+      </article>
+
+      <article class="server">
+        <h3>📱 Bedrock Edition</h3>
+
+        <div class="label">Server Address / IP</div>
+        <div class="address">
+          <span class="value">15.235.212.121</span>
+          <button class="btn copy"
+            type="button"
+            data-copy="15.235.212.121"
+            data-name="IP Bedrock">
+            คัดลอก IP
+          </button>
+        </div>
+
+        <div class="label">Port</div>
+        <div class="address">
+          <span class="value">13477</span>
+          <button class="btn copy"
+            type="button"
+            data-copy="13477"
+            data-name="Port Bedrock">
+            คัดลอก Port
+          </button>
+        </div>
+
+        <p class="note">
+          ใน Minecraft Bedrock ให้กรอก Address และ Port
+          ลงในช่องแยกกัน
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>🌿 เกี่ยวกับ Yarm Yen</h2>
+    <p class="sub">
+      พื้นที่สำหรับการเอาชีวิตรอดและเล่นร่วมกับเพื่อน
+      อย่างสบาย ๆ
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <strong>🧭 รูปแบบการเล่น</strong>
+        <span>Survival — เอาชีวิตรอด</span>
+      </div>
+
+      <div class="feature">
+        <strong>🎮 เวอร์ชันที่ระบุ</strong>
+        <span>26.2</span>
+      </div>
+
+      <div class="feature">
+        <strong>🛡️ ระบบป้องกันพื้นที่</strong>
+        <span>ช่วยปกป้องพื้นที่ของผู้เล่น</span>
+      </div>
+
+      <div class="feature">
+        <strong>🤝 ชุมชน</strong>
+        <span>เล่นกับเพื่อนแบบสบาย ๆ</span>
+      </div>
+    </div>
+
+    <p class="note">
+      เวอร์ชันแสดงตามข้อมูลที่ผู้ดูแลให้มา
+      โปรดตรวจสอบความเข้ากันได้ก่อนเข้าเล่น
+    </p>
+  </section>
+
+  <section class="panel">
+    <div class="discord">
+      <div>
+        <h2>💚 พบกันใน Discord</h2>
+        <p>
+          มาพูดคุย ติดตามข่าวสาร และเป็นส่วนหนึ่ง
+          ของชุมชน Yarm Yen
+        </p>
+      </div>
+
+      <a class="btn primary"
+         href="https://discord.gg/fuHYjkMaQZ"
+         target="_blank"
+         rel="noopener noreferrer">
+        เข้าร่วม Discord ↗
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <strong>Yarm Yen</strong> · Minecraft Survival Community
+  <br>
+  เว็บไซต์ชุมชนแฟนเกม ไม่ได้มีส่วนเกี่ยวข้องกับ Mojang หรือ Microsoft
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const toast = document.getElementById("toast");
+let timer;
+
+function showMessage(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2300);
+}
+
+async function copyText(value, name) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+    } else {
+      const input = document.createElement("textarea");
+      input.value = value;
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.appendChild(input);
+      input.select();
+
+      const success = document.execCommand("copy");
+      input.remove();
+
+      if (!success) throw new Error("Copy failed");
+    }
+
+    showMessage("คัดลอก " + name + " เรียบร้อยแล้ว!");
+  } catch (error) {
+    showMessage("คัดลอกไม่สำเร็จ กรุณาคัดลอกเอง: " + value);
+  }
+}
+
+document.querySelectorAll("[data-copy]").forEach(button => {
+  button.addEventListener("click", () => {
+    copyText(button.dataset.copy, button.dataset.name);
+  });
+});
+</script>
+
+</body>
+</html>
